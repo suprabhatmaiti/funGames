@@ -96,22 +96,21 @@ class Game:
         pygame.display.flip()
         
     def run(self):
-        
-        running =True
-        pause=False
-        while running:
+        self.running =True
+        self.pause=False
+        while self.running:
             for event in pygame.event.get():
                 if event.type==pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        pause= not pause
-                        if pause:
+                        self.pause= not self.pause
+                        if self.pause:
                             self.display_pause_screen()  # Show pause screen
                         else:
                             self.play_sound('startGame')
                     if event.key==pygame.K_RETURN:
-                        pause=False
+                        self.pause=False
                         self.play_sound('startGame')
-                    if not pause:
+                    if not self.pause:
                         if event.key==pygame.K_UP:
                             self.snake.move_up()
                         if event.key==pygame.K_DOWN:
@@ -124,14 +123,14 @@ class Game:
                         
                         
                 elif event.type==pygame.QUIT:
-                    running =False
+                    self.running =False
             
             try:
-                if not pause:
+                if not self.pause:
                     self.play()     
             except Exception as e:
                 self.game_over()
-                pause=True
+                self.pause=True
                 self.reset()
             if self.snake.length < 5:
                 speed = 0.4
